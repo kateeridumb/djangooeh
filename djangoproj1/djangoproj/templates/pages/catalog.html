@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Каталог товаров</h1>
+    
+    <div class="d-flex gap-2 mb-4">
+        <a href="{% url 'categories' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-tags"></i> Категории
+        </a>
+        <a href="{% url 'tags' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-hashtag"></i> Теги
+        </a>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for product in products %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text text-muted">{{ product.description|truncatechars:100 }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="badge bg-dark">₽ {{ product.price }}</span>
+                        <a href="{% url 'product_detail' product.pk %}" class="btn btn-sm btn-outline-dark">
+                            Подробнее <i class="fas fa-arrow-right"></i>
+                            <a href="{% url 'add_to_cart' product.pk %}" class="btn btn-sm btn-outline-dark">
+                                Добавить в корзину <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

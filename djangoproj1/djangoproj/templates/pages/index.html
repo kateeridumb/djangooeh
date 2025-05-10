@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная - CoffeeShop{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1>Добро пожаловать в CoffeeShop!</h1>
+    <p class="lead">Лучший кофе для бодрого утра!</p>
+    <a href="{% url 'catalog' %}" class="btn btn-primary mt-3">Перейти в каталог</a>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Оформление заказа</h2>
+<form method="post">
+    {% csrf_token %}
+    <label>ФИО:</label>
+    <input type="text" name="client_name" required class="form-field">
+    
+    <label>Телефон:</label>
+    <input type="text" name="client_phone" required class="form-field">
+    
+    <label>Адрес доставки:</label>
+    <textarea name="delivery_address" required class="form-field"></textarea>
+
+    <input type="submit" value="Оформить заказ" class="btn btn-outline-secondary">
+</form>
+{% endblock %}

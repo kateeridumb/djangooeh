@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Мои заказы</h2>
+
+  {% if orders %}
+    <ul class="order-list">
+      {% for order in orders %}
+        <li class="order-item">
+          <strong>Заказ №{{ order.unique_number }}</strong>
+          — {{ order.created_at|date:"d.m.Y H:i" }}
+
+          <p>
+            <strong>Клиент:</strong> {{ order.client_name }}<br>
+            <strong>Телефон:</strong> {{ order.client_phone }}<br>
+            <strong>Адрес:</strong> {{ order.delivery_address }}
+          </p>
+
+          <h4>Товары:</h4>
+          <ul>
+            {% for item in order.orderitem_set.all %}
+              <li>
+                {{ item.product.name }}
+                — {{ item.quantity }} шт. × {{ item.product.price }} ₽
+                {% if item.discount_per_item %} 
+                  (скидка {{ item.discount_per_item }} ₽/шт.)
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+
+          <p class="order-total">
+            <strong>Итого: {{ order.total_price }} ₽</strong>
+          </p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>У вас пока нет заказов.</p>
+  {% endif %}
+{% endblock %}
